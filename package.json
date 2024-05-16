@@ -1,0 +1,19 @@
+{
+  "name": "qr-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "ts-init": "tsc --init"
+  },
+  "keywords": [
+    "qr",
+    "api",
+    "backend"
+  ],
+  "author": "Marco Castro",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.4.5"
+  }
+}
