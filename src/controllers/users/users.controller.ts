@@ -1,40 +1,42 @@
 import { Request, Response } from 'express';
 import AppResponse from '../../helpers/responses/http-response.responses';
 import { HttpStatus } from '../../helpers/enums/http-status.enum';
-import { UsersService } from '../../services/users/users.service';
+import UsersService from '../../services/users/users.service';
 
 class UsersController {
-    private service: UsersService;
 
-    constructor() {
-        this.service = new UsersService();
+    async login(req: Request, res: Response) {
+        const {body} =  req;
+        const result = await UsersService.login(body.username, body.password);
+        const response = typeof result == 'string' ? { message: result } : result;
+        return new AppResponse(HttpStatus.CREATED, response, res);
     }
 
-    async createUser(req: Request) {
+    async createUser(req: Request, res: Response) {
         const { body } = req;
-        const user = await this.service.createUser(body);
-        return new AppResponse(HttpStatus.CREATED, user);
+        const user = await UsersService.createUser(body);
+        return new AppResponse(HttpStatus.CREATED, user, res);
     }
 
-    async getUser(req: Request) {
+    async getUser(req: Request, res: Response) {
         const { id } = req.params;
-        const user = await this.service.getUser(id);
-        return new AppResponse(HttpStatus.OK, user);
+        const user = await UsersService.getUser(id);
+        return new AppResponse(HttpStatus.OK, user, res);
     }
 
-    async updateUser(req: Request) {
+    async updateUser(req: Request, res: Response) {
         const { id } = req.params;
         const { body } = req;
 
-        await this.service.updateUser(id, body);
-        return new AppResponse(HttpStatus.NO_CONTENT, {});
+        await UsersService.updateUser(id, body);
+        return new AppResponse(HttpStatus.NO_CONTENT, {}, res);
     }
 
-    async deleteUser(req: Request) {
+    async deleteUser(req: Request, res: Response) {
         const { id} = req.params;
 
-        await this.service.deleteUser(id);
-        return new AppResponse(HttpStatus.NO_CONTENT, {});
+        await UsersService.deleteUser(id);
+        return new AppResponse(HttpStatus.NO_CONTENT, {}, res);
     }
 }
 

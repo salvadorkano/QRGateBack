@@ -1,9 +1,9 @@
+import { Response } from "express";
 import { HttpStatus } from "../enums/http-status.enum";
-import express from 'express';
 
 
 export default class AppResponse {
-    constructor(status: HttpStatus, body: any) {
-        return express.response.status(status).json({ data: { ...body } });
+    constructor(status: HttpStatus, body: any, res: Response) {
+        return res.status(status).json({ data: { ...body } });
     }
 }
