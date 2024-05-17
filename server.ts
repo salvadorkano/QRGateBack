@@ -1,13 +1,13 @@
 import express, { Request, Response } from 'express';
-import router from './routes';
+import router from './src/routes';
 import cors from 'cors';
-import {getConnection} from './persistence/mongo';
+import { getConnection } from './src/persistence/mongo';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 getConnection();
-app.use(cors({ allowedHeaders: '*', origin: '*' }))
+app.use(cors({ allowedHeaders: '*', origin: '*' }));
 app.use(express.json());
 
 app.get('/', (_: Request, res: Response) => {
