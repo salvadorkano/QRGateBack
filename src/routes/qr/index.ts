@@ -1,7 +1,14 @@
-import { Router } from "express";
+import { Router } from 'express';
+import QRController from '../../controllers/qrs/qr.controller';
 
-const router =  Router();
+const router = Router();
 
-router.post('/');
+const qrController = new QRController();
+
+router.post('/', qrController.createQR);
+router.get(
+    '/getByUsername/:username',
+    qrController.getQRByUsername.bind(qrController)
+);
 
 export default router;
